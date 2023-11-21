@@ -119,7 +119,7 @@ def set_up():
 
     logging.info('Starting browser!!')
 
-    browser = webdriver.Chrome(executable_path='./chromedriver',options=options)
+    browser = webdriver.Chrome(options=options)
 
 def bbb_browser():
     global browser
@@ -190,17 +190,6 @@ def bbb_browser():
             logging.info("could not find users and messages toggle")
         except ElementClickInterceptedException:
             logging.info("could not find users and messages toggle")
- 
-    try:
-        browser.execute_script("document.querySelector('[aria-label=\"Users and messages toggle\"]').style.display='none';")
-    except JavascriptException:
-        browser.execute_script("document.querySelector('[aria-label=\"Users and messages toggle with new message notification\"]').style.display='none';")
-    browser.execute_script("document.querySelector('[aria-label=\"Options\"]').style.display='none';")
-    browser.execute_script("document.querySelector('[aria-label=\"Actions bar\"]').style.display='none';")
-    try:
-        browser.execute_script("document.getElementById('container').setAttribute('style','margin-bottom:30px');")
-    except JavascriptException:
-        browser.execute_script("document.getElementById('app').setAttribute('style','margin-bottom:30px');")
 
 def create_meeting():
     create_params = {}
