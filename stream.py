@@ -19,7 +19,7 @@ from datetime import datetime
 import time
 
 browser = None
-selenium_timeout = 30
+selenium_timeout = 600 # 10mn timeout for users in waitlist
 connect_timeout = 5
 
 logging.basicConfig(level=os.environ.get('LOGLEVEL', 'INFO' if not os.environ.get('DEBUG') else 'DEBUG'))
@@ -163,16 +163,6 @@ def bbb_browser():
                
                element.send_keys(tmp_chatMsg)
                chat_send.click()
-
-        if args.chat:
-            try:
-                browser.execute_script("document.querySelector('[aria-label=\"User list\"]').parentElement.style.display='none';")
-            except JavaScriptException:
-                browser.execute_script("document.querySelector('[aria-label=\"Users list\"]').parentElement.style.display='none';")
-        else:
-            element = browser.find_elements_by_id('chat-toggle-button')[0]
-            if element.is_enabled():
-                element.click()
     except NoSuchElementException:
         # ignore (chat might be disabled)
         logging.info("could not find chat input or chat toggle")
